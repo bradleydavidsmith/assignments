@@ -30,18 +30,22 @@
 #
 #
 # METHOD and MODULES USED:
-# Used the pygeocode module to take a street
+# Used the pygeocoder module to take a street
 # address string, like 'Portland, OR' and
 # return it's latitude and longitude.
+# http://blog.pamelafox.org/2012/04/converting-addresses-to-timezones-in.html
 #
 # Used the tzwhere module to take the
 # latitude and longitude from above and
 # return the time zone string.
+# https://github.com/pegler/pytzwhere
 #
 # Used pytz to take the timezone string
 # and localize UTC to the local time.
 # pytz.normalize() accounts for daylight
 # savings time.
+# http://pytz.sourceforge.net/
+# 
 #
 # FUTURE ENHANCEMENTS:
 # 1) Instead of hard-coding the business
@@ -94,7 +98,8 @@ def in_between(now, start, end):
         return start <= now or now < end
 
 # Not used here, but could be useful in the future
-# usage is_dst("America/Los_Angeles")
+# usage: is_dst("America/Los_Angeles")
+# http://stackoverflow.com/questions/19774709/use-python-to-find-out-if-a-timezone-currently-in-daylight-savings-time
 def is_dst(zonename):
     tz = pytz.timezone(zonename)
     now = pytz.utc.localize(datetime.utcnow())

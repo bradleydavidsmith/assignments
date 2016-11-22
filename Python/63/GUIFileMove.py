@@ -35,7 +35,7 @@ def callback():
             fullFileName = os.path.join(src, file)
             
             #print "Moving", fullFileName, "to", dst
-            text.insert(END, "Moving" + fullFileName + " to " + dst + "\n")
+            text.insert(END, "Moving '" + fullFileName + "' to '" + dst + "'.\n")
             text.see(END)
             
             # So text would be inserted as it is written,
@@ -89,13 +89,14 @@ frame.pack()
 ## INITIAL CHECKS BEFORE THE mainloop()
 
 # make the 2 folder names
-src = ".\Folder A"
-dst = ".\Folder B"
+desktopFolder = os.path.join(os.path.expanduser("~"), "Desktop")
+src = desktopFolder + "\\Folder A"
+dst = desktopFolder + "\\Folder B"
 
 # Make sure the 2 folders exist
 if not os.path.isdir(src):
     text.config(state = NORMAL)
-    text.insert(END, "Folder " + src + " doesn't exist.")
+    text.insert(END, "Folder '" + src + "' doesn't exist.")
     text.config(state = DISABLED)
     # Disable the app
     b.config(state = DISABLED)

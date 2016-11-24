@@ -1,3 +1,26 @@
+#################################################################
+#
+# File Copy
+#
+# DESCRIPTION:
+#    Copies all the files from a directory to another if
+#    the file was modified in the last 24 hours
+#
+# WRITTEN FOR: Python 2.7.9
+#
+# WRITTEN BY: Brad Smith
+#
+# FUTURE ENHANCEMENTS:
+#    1) This program's purpose is to do a backup of the directory.
+#       Instead of counting on it being run every 24 hours, have
+#       the program keep a database of backed up files, and only
+#       back up files that changed in the last 24 hours.
+#
+#    2) Have the program back up the entire directory structure
+#       instead of just a single directory
+##################################################################
+
+
 #!/usr/bin/python2
 import os, shutil, sys, datetime
 

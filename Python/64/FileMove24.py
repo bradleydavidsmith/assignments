@@ -24,6 +24,14 @@
 #!/usr/bin/python2
 import os, shutil, sys, datetime
 
+def getModificationDate(filename):
+    t = os.path.getmtime(filename)
+    return datetime.datetime.fromtimestamp(t)
+
+def getCreationDate(filename):
+    t = os.path.getctime(filename)
+    return datetime.datetime.fromtimestamp(t)
+
 # make the 2 folder names
 desktopFolder = os.path.join(os.path.expanduser("~"), "Desktop")
 src = desktopFolder+"\\Folder A"
@@ -47,21 +55,26 @@ txtcount = 0
 for file in os.listdir(src):
     if file.endswith(".txt"):
 
-
         fullFileName = os.path.join(src, file)
-        modTS = os.path.getmtime(fullFileName)
-        modDate = datetime.datetime.fromtimestamp(modTS)
+        modDate = getModificationDate(fullFileName)
         mDateStr = modDate.strftime('%Y-%m-%d %H:%M:%S')
+        creDate = getCreationDate(fullFileName)
+        cDateStr = creDate.strftime('%Y-%m-%d %H:%M:%S')
 
-        # Copy if modified in the last 24 hours
+        # Copy if modified or created in the last 24 hours
         if modDate > T24HoursAgo:   
             print file, "last modified", mDateStr, \
-            "So copying to", dst
+            "so copying to", dst
+            shutil.copy2(fullFileName, dst)
+            txtcount += 1
+        elif creDate > T24HoursAgo:   
+            print file, "was created", cDateStr, \
+            "so copying to", dst
             shutil.copy2(fullFileName, dst)
             txtcount += 1
         else:
-            print file, "last modified", mDateStr, \
-            "So not copied..."
+            print file, "was created", cDateStr, "and last modified", mDateStr, \
+            "so not copied..."
             
 print
 print "Number of *.txt files copied:", txtcount
